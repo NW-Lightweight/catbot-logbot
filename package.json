@@ -1,0 +1,25 @@
+{
+  "name": "logbot",
+  "version": "1.0.0",
+  "description": "A Bot to relay catbot's messages to all chat relay channels",
+  "main": "logbot1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nullworks/catbot-logbot.git"
+  },
+  "author": "BenCat07",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nullworks/catbot-logbot/issues"
+  },
+  "homepage": "https://github.com/nullworks/catbot-logbot#readme",
+  "dependencies": {
+    "dateformat": "^4.5.1",
+    "discord.js": "^12.5.3",
+    "tail": "^2.2.3"
+  },
+  "devDependencies": {}
+}
