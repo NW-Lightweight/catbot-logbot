@@ -78,12 +78,14 @@ function composeMessage(data) {
 	let ipcID = data[4];
 
 
-    const wordToReplace = 'discord.gg/';  
-    const replacementWord = '<removed>';  
+	const wordToReplace = 'discord.';
+	const replacementWord = '<removed>';
+	const emojiRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji}/gu;
 
-    message = message.replace(new RegExp(wordToReplace, 'gi'), replacementWord);
+	message = message.replace(new RegExp(wordToReplace, 'gi'), replacementWord);
+	username = username.replace(emojiRegex, '');
 
-    return `\`[ID ${ipcID}] [U:1:${steamID}]\` **${username}:** ${message}`;
+return `\`[ID ${ipcID}]\` [${username}](https://steamcommunity.com/profiles/[U:1:${steamID}]) : ${message}`;
 }
 
 function composeMessageRaw(data) {
