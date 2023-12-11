@@ -7,7 +7,7 @@ Created for relaying Team Fortress chat to discord chat
 4. Run "npm install" to install all required packages as well as pm2
 5. Run the script using command "pm2 start logbot1.js"
 ##### Changes:
-Removes "discord." from messages to prevent invite spam in relay channel. <br>
+Removes parts of links from messages to prevent invite spam in relay channel. <br>
 Changes the messages so that the name becomes a clickable link. Cool stuff. <br>
 ##### IMPORTANT:
 To ensure no embed links are sent, go to channel settings and disable "Embed Links" and "Mention...". <br>

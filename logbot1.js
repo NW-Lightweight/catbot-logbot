@@ -77,15 +77,24 @@ function composeMessage(data) {
 	let message = data[3];
 	let ipcID = data[4];
 
-
-	const wordToReplace = 'discord.';
+	const wordToReplace = ['discord.com/invite', 'youtube.com', 't.me', 'twitter.com', 'discord.gg/', 'dsc.gg/'];
 	const replacementWord = '<removed>';
 	const emojiRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji}/gu;
+	const bracketRegex = /[()[\]{}<>]/g;
 
-	message = message.replace(new RegExp(wordToReplace, 'gi'), replacementWord);
+	wordToReplace.forEach(word => {
+	message = message.replace(new RegExp(word, 'gi'), replacementWord);
+	});
+	
+	username = username.replace(bracketRegex, '');
 	username = username.replace(emojiRegex, '');
 
-return `\`[ID ${ipcID}]\` [${username}](https://steamcommunity.com/profiles/[U:1:${steamID}]) : ${message}`;
+	if (!username.trim()) {
+		username = 'username';
+		}
+
+	return `\`[ID ${ipcID}]\` [${username}](https://steamcommunity.com/profiles/[U:1:${steamID}]) : ${message}`;
+}
 }
 
 function composeMessageRaw(data) {
