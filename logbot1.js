@@ -86,8 +86,11 @@ function composeMessage(data) {
 	message = message.replace(new RegExp(word, 'gi'), replacementWord);
 	});
 	
+	message = message.replace(/[*_~`|]/g, '');
+
 	username = username.replace(bracketRegex, '');
 	username = username.replace(emojiRegex, '');
+	username = username.replace(/[*_~`|]/g, '');
 
 	if (!username.trim()) {
 		username = 'username';
