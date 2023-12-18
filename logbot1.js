@@ -77,17 +77,19 @@ function composeMessage(data) {
 	let message = data[3];
 	let ipcID = data[4];
 
-	const wordToReplace = ['discord.com/invite', 'youtube.com/@', 't.me/', 'twitter.com', 'discord.gg/', 'dsc.gg/', 'youtube.com/channel'];
-	const replacementWord = '<removed>';
+	const wordToReplace = ['discord.com/invite', 'youtube.com/@', 't.me/', 'twitter.com', 'discord.gg/', 'dsc.gg/', 'youtube.com/channel', 'https://', '`','*'];
+	const replacementWord = '';
 	const emojiRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji}/gu;
 	const bracketRegex = /[()[\]{}<>]/g;
-
+    const discordFormat = ['`', '*'];
+	
 	wordToReplace.forEach(word => {
 	message = message.replace(new RegExp(word, 'gi'), replacementWord);
 	});
 	
 	username = username.replace(bracketRegex, '');
 	username = username.replace(emojiRegex, '');
+	username = username.replace(discordFormat, '');
 
 	if (!username.trim()) {
 		username = 'username';
