@@ -88,9 +88,7 @@ function composeMessage(data) {
 	
 	message = message.replace(/[*_~`|]/g, '');
 
-	username = username.replace(bracketRegex, '');
-	username = username.replace(emojiRegex, '');
-	username = username.replace(/[*_~`|]/g, '');
+	username = username.replace(bracketRegex, '').replace(emojiRegex, '').replace(/[*_~`|]/g, '');
 
 	if (!username.trim()) {
 		username = 'username';
@@ -104,8 +102,25 @@ function composeMessageRaw(data) {
 	let username = data[2];
 	let message = data[3];
 	let ipcID = data[4];
+	
+	const wordToReplace = ['discord.com/invite', 'youtube.com/@', 't.me/', 'twitter.com', 'discord.gg/', 'dsc.gg/', 'youtube.com/channel'];
+	const replacementWord = '';
+	const emojiRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji}/gu;
+	const bracketRegex = /[()[\]{}<>]/g;
+	
+	wordToReplace.forEach(word => {
+	message = message.replace(new RegExp(word, 'gi'), replacementWord);
+	});
+	
+	message = message.replace(/[*_~`|]/g, '');
 
-	return `[ID ${ipcID}] [U:1:${steamID}] ${username}: ${message}`;
+	username = username.replace(bracketRegex, '').replace(emojiRegex, '').replace(/[*_~`|]/g, '');
+
+	if (!username.trim()) {
+		username = 'username';
+		}
+
+	return `\`[ID ${ipcID}]\` [${username}](https://steamcommunity.com/profiles/[U:1:${steamID}]) : ${message}`;
 }
 
 function test_and_set(msg) {
@@ -219,7 +234,7 @@ client.on('ready', () => {
 	client.guilds.cache.forEach((guild, str, map) => {
 		var has_channel = guild.channels.cache.filter(channel => channel.type === 'text').filter(channel => channel.name === 'tf2-chat-relay').array().length;
 		if (!has_channel)
-			guild.channels.create("tf2-chat-relay", { reason: 'Need somewhere to relay the messages'}).then((channel) => {
+			guild.channels.create("tf2-chat-relay", { reason: 'Need somewhere to relay messages'}).then((channel) => {
 				console.log("Created relay channel!");
 				channel.send("This channel will relay the chat of all bots.\n\nUse $$mute (steamid32) in order to (un)mute a given player.\n\nThis command will work from any channel, as long as you have Guild Management permissions.\n\nI Also recommend setting up the permissions such that noone can talk in this channel.")
 			}
