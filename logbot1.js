@@ -77,7 +77,7 @@ function composeMessage(data) {
 	let message = data[3];
 	let ipcID = data[4];
 
-	const wordToReplace = ['discord.com/invite', 'youtube.com/@', 't.me/', 'twitter.com', 'discord.gg/', 'dsc.gg/', 'youtube.com/channel'];
+	const wordToReplace = ['discord.com/invite', 'youtube.com/@', 't.me/', 'twitter.com', 'discord.gg/', 'dsc.gg/', 'youtube.com/channel', 'steamcommunity.com'];
 	const replacementWord = '';
 	const emojiRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji}/gu;
 	const bracketRegex = /[()[\]{}<>]/g;
