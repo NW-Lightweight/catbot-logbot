@@ -82,6 +82,7 @@ function composeMessage(data) {
 	const emojiRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji}/gu;
 	const bracketRegex = /[()[\]{}<>]/g;
 	const NameLinks = 'https';
+	const invisibleCharRegex = /[\u200B-\u200D\uFEFF]/g;
 	
 	wordToReplace.forEach(word => {
 	message = message.replace(new RegExp(word, 'gi'), replacementWord);
@@ -89,7 +90,7 @@ function composeMessage(data) {
 	
 	message = message.replace(/[*_~`|]/g, '');
 
-	username = username.replace(bracketRegex, '').replace(emojiRegex, '').replace(/[*_~`|]/g, '').replace(NameLinks, '');
+	username = username.replace(bracketRegex, '').replace(emojiRegex, '').replace(/[*_~`|]/g, '').replace(NameLinks, '').replace(invisibleCharRegex, '');
 
 	if (!username.trim()) {
 		username = 'username';
