@@ -9,6 +9,7 @@ Created for relaying Team Fortress chat to discord chat
 ##### Changes:
 Removes parts of links from messages to prevent invite spam in relay channel. <br>
 Changes the messages so that the name becomes a clickable link. Cool stuff. <br>
+Removes certain characters to prevent the text formatting from breaking. <br>
 ##### IMPORTANT:
 To ensure no embed links are sent, go to channel settings and disable "Embed Links" and "Mention...". <br>
 If you don't, you will get spammed with pings and other shit.
