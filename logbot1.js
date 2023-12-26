@@ -90,7 +90,7 @@ function composeMessage(data) {
 	
 	message = message.replace(/[*_~`|]/g, '');
 
-	username = username.replace(bracketRegex, '').replace(emojiRegex, '').replace(/[*_~`|]/g, '').replace(NameLinks, '').replace(notAsciiRegex, '');
+	username = username.replace(bracketRegex, '').replace(emojiRegex, '').replace(/[*_~`|]/g, '').replace(NameLinks, '').replace(notAsciiRegex, '').replace(wordToReplace, '');
 
 	if (!username.trim()) {
 		username = 'username';
