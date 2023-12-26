@@ -95,6 +95,10 @@ function composeMessage(data) {
 	if (!username.trim()) {
 		username = 'username';
 		}
+	
+	if (username.length == 1) {
+		username = 'username';
+		}
 
 	return `\`[ID ${ipcID}]\` [${username}](https://steamcommunity.com/profiles/[U:1:${steamID}]) : ${message}`;
 }
