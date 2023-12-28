@@ -78,18 +78,25 @@ function composeMessage(data) {
 	let ipcID = data[4];
 
 	const wordToReplace = ['discord.com/invite', 'youtube.com/@', 't.me/', 'twitter.com', 'discord.gg/', 'dsc.gg/', 'youtube.com/channel', 'steamcommunity.com', 'https', 'vk.com/'];
-	const replacementWord = ''; //const cuz someone might want to use their own word
+	const replacementWord = '';
 	const bracketRegex = /[()[\]{}<>]/g;
-	//const funnyRegex = /[^\x00-\x7F\u0600-\u06FF\u0400-\u04FF]/g;
+	const funnyRegex = /[^A-Za-z0-9\sА-Яа-я\u0600-\u06FF]/g;
 	const discordFormat = /[*_~`|]/g;
 	
 	wordToReplace.forEach(word => {
-	message = message.replace(new RegExp(word, 'gi'), replacementWord);
+	
+		message = message
+			.replace(new RegExp(word, 'gi'), replacementWord);
 	});
 	
-	message = message.replace(discordFormat, '');
+	message = message
+		.replace(discordFormat, '');
 
-	username = username.replace(bracketRegex, '').replace(discordFormat, '').replace(wordToReplace, ''); //.replace(funnyRegex, '')
+	username = username
+		.replace(bracketRegex, '')
+		.replace(discordFormat, '')
+		.replace(wordToReplace, '')
+		.replace(funnyRegex, '');
 
 	if (!username.trim()) {
 		username = 'username';
@@ -104,18 +111,26 @@ function composeMessageRaw(data) {
 	let message = data[3];
 	let ipcID = data[4];
 	
-	const wordToReplace = ['discord.com/invite', 'youtube.com/@', 't.me/', 'twitter.com', 'discord.gg/', 'dsc.gg/', 'youtube.com/channel'];
+	const wordToReplace = ['discord.com/invite', 'youtube.com/@', 't.me/', 'twitter.com', 'discord.gg/', 'dsc.gg/', 'youtube.com/channel', 'steamcommunity.com', 'https', 'vk.com/'];
 	const replacementWord = '';
-	const emojiRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji}/gu;
 	const bracketRegex = /[()[\]{}<>]/g;
+	const funnyRegex = /[^A-Za-z0-9\sА-Яа-я\u0600-\u06FF]/g;
+	const discordFormat = /[*_~`|]/g;
 	
 	wordToReplace.forEach(word => {
-	message = message.replace(new RegExp(word, 'gi'), replacementWord);
+	
+		message = message
+			.replace(new RegExp(word, 'gi'), replacementWord);
 	});
 	
-	message = message.replace(/[*_~`|]/g, '');
+	message = message
+		.replace(discordFormat, '');
 
-	username = username.replace(bracketRegex, '').replace(emojiRegex, '').replace(/[*_~`|]/g, '');
+	username = username
+		.replace(bracketRegex, '')
+		.replace(discordFormat, '')
+		.replace(wordToReplace, '')
+		.replace(funnyRegex, '');
 
 	if (!username.trim()) {
 		username = 'username';
