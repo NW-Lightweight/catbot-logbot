@@ -80,7 +80,7 @@ function composeMessage(data) {
 	const wordToReplace = ['discord.com/invite', 'youtube.com/@', 't.me/', 'twitter.com', 'discord.gg/', 'dsc.gg/', 'youtube.com/channel', 'steamcommunity.com', 'https', 'vk.com/'];
 	const replacementWord = ''; //const cuz someone might want to use their own word
 	const bracketRegex = /[()[\]{}<>]/g;
-	const notAsciiRegex = /[^\x00-\x7F]/g;
+	const funnyRegex = /[^\x00-\x7F\u0600-\u06FF\u0400-\u04FF]/g;
 	const discordFormat = /[*_~`|]/g;
 	
 	wordToReplace.forEach(word => {
@@ -89,7 +89,7 @@ function composeMessage(data) {
 	
 	message = message.replace(discordFormat, '');
 
-	username = username.replace(bracketRegex, '').replace(discordFormat, '').replace(notAsciiRegex, '').replace(wordToReplace, '');
+	username = username.replace(bracketRegex, '').replace(discordFormat, '').replace(funnyRegex, '').replace(wordToReplace, '');
 
 	if (!username.trim()) {
 		username = 'username';
