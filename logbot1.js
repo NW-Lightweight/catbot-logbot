@@ -77,7 +77,7 @@ function composeMessage(data) {
 	let message = data[3];
 	let ipcID = data[4];
 
-	const wordToReplace = ['discord.com/invite', 't.me/',  'discord.gg/', 'dsc.gg/', '@everyone', '@here']; //removing some of the hard-coded links
+	const wordToReplace = ['discord.com/invite', 't.me/',  'discord.gg/', 'dsc.gg/', '@everyone', '@here', 'youtube.com/', 'youtu.be/' ]; //removing some of the hard-coded links
 	const linkRegex = /(https?:\/\/[^\s]+)/g; //this one should cover all links starting with http(s)
 	const replacementWord = '';
 	const bracketRegex = /[()[\]{}<>@]/g;
