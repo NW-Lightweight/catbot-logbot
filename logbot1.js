@@ -77,10 +77,12 @@ function composeMessage(data) {
 	let message = data[3];
 	let ipcID = data[4];
 
-	const wordToReplace = ['discord.com/invite', 'youtube.com/', 't.me/', 'twitter.com', 'discord.gg/', 'dsc.gg/', 'youtube.com/channel', 'steamcommunity.com', 'https:/', 'vk.com/', 'youtu.be/'];
+	const wordToReplace = ['discord.com/invite', 't.me/',  'discord.gg/', 'dsc.gg/']; //removing some of the hard-coded links
+	const linkRegex = /(?:https?:\/\/)?[^\s]+/g; //this one should cover all links starting with http(s)
 	const replacementWord = '';
 	const bracketRegex = /[()[\]{}<>@]/g;
-	const funnyRegex = /[^A-Za-z0-9\sА-Яа-я\u0600-\u06FF\u00C0-\u024F\u1E00-\u1EFF\u00C1-\u00DA\u00DC\u00DF-\u00E9\u00F1\u00F3\u00FA\u3400-\u4DBF\u4E00-\u9FFF\u20000-\u2A6DF\u3040-\u309F\u30A0-\u30FF\u31F0-\u31FF\u3200-\u32FF\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]/g;
+	const emojiRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji}/gu;
+	const funnyRegex = /[^A-Za-z0-9\s\ud800-\udfff\u0600-\u06FF\u00C0-\u024F\u1E00-\u1EFF\u00C1-\u00DA\u00DC\u00DF-\u00E9\u00F1\u00F3\u00FA\u3400-\u4DBF\u4E00-\u9FFF\u20000-\u2A6DF\u3040-\u309F\u30A0-\u30FF\u31F0-\u31FF\u3200-\u32FF\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]/g;
 	const discordFormat = /[*_~`|]/g;
 	
 	wordToReplace.forEach(word => {
@@ -90,12 +92,15 @@ function composeMessage(data) {
 	});
 	
 	message = message
+		.replace(linkRegex, '')
 		.replace(discordFormat, '');
 
 	username = username
 		.replace(bracketRegex, '')
 		.replace(discordFormat, '')
 		.replace(wordToReplace, '')
+		.replace(emojiRegex, '')
+		.replace(linkRegex, '')
 		.replace(funnyRegex, '');
 
 	if (!username.trim()) {
@@ -111,10 +116,12 @@ function composeMessageRaw(data) {
 	let message = data[3];
 	let ipcID = data[4];
 	
-	const wordToReplace = ['discord.com/invite', 'youtube.com/@', 't.me/', 'twitter.com', 'discord.gg/', 'dsc.gg/', 'youtube.com/channel', 'steamcommunity.com', 'https', 'vk.com/'];
+	const wordToReplace = ['discord.com/invite', 't.me/',  'discord.gg/', 'dsc.gg/']; //removing some of the hard-coded links
+	const linkRegex = /(?:https?:\/\/)?[^\s]+/g; //this one should cover all links starting with http(s)
 	const replacementWord = '';
-	const bracketRegex = /[()[\]{}<>]/g;
-	const funnyRegex = /[^A-Za-z0-9\sА-Яа-я\u0600-\u06FF]/g;
+	const bracketRegex = /[()[\]{}<>@]/g;
+	const emojiRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji}/gu;
+	const funnyRegex = /[^A-Za-z0-9\s\ud800-\udfff\u0600-\u06FF\u00C0-\u024F\u1E00-\u1EFF\u00C1-\u00DA\u00DC\u00DF-\u00E9\u00F1\u00F3\u00FA\u3400-\u4DBF\u4E00-\u9FFF\u20000-\u2A6DF\u3040-\u309F\u30A0-\u30FF\u31F0-\u31FF\u3200-\u32FF\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]/g;
 	const discordFormat = /[*_~`|]/g;
 	
 	wordToReplace.forEach(word => {
@@ -124,12 +131,15 @@ function composeMessageRaw(data) {
 	});
 	
 	message = message
+		.replace(linkRegex, '')
 		.replace(discordFormat, '');
 
 	username = username
 		.replace(bracketRegex, '')
 		.replace(discordFormat, '')
 		.replace(wordToReplace, '')
+		.replace(emojiRegex, '')
+		.replace(linkRegex, '')
 		.replace(funnyRegex, '');
 
 	if (!username.trim()) {
