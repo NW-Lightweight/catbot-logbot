@@ -80,11 +80,8 @@ function composeMessage(data) {
 	const wordToReplace = ['discord.com/invite', 't.me/',  'discord.gg/', 'dsc.gg/', '@everyone', '@here', 'youtube.com/', 'youtu.be/' ]; //removing some of the hard-coded links
 	const linkRegex = /(https?:\/\/[^\s]+)/g; //this one should cover all links starting with http(s)
 	const replacementWord = '';
-	const bracketRegex = /[()[\]{}<>@]/g;
-	const emojiRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji}/gu;
-	const funnyRegex = /[\u0E00-\u0E7F\u200B-\u200D\u2028-\u202F]+/g;
-	const discordFormat = /[*_~`|]/g;
-	
+	const comboRegex = /[()[\]{}<>@]|[\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji}|[\u0E00-\u0E7F\u200B-\u200D\u2028-\u202F]+|[*_~`|]/gu;
+
 	wordToReplace.forEach(word => {
 	
 		message = message
@@ -93,16 +90,13 @@ function composeMessage(data) {
 	
 	message = message
 		.replace(linkRegex, '')
-		.replace(discordFormat, '');
+		.replace(comboRegex, '');
 
 	username = username
-		.replace(bracketRegex, '')
-		.replace(discordFormat, '')
+		.replace(comboRegex, '')
 		.replace(wordToReplace, '')
-		.replace(emojiRegex, '')
-		.replace(linkRegex, '')
-		.replace(funnyRegex, '');
-
+		.replace(linkRegex, '');
+		
 	if (!username.trim()) {
 		username = 'username';
 		}
@@ -119,11 +113,8 @@ function composeMessageRaw(data) {
 	const wordToReplace = ['discord.com/invite', 't.me/',  'discord.gg/', 'dsc.gg/', '@everyone', '@here', 'youtube.com/', 'youtu.be/' ]; //removing some of the hard-coded links
 	const linkRegex = /(https?:\/\/[^\s]+)/g; //this one should cover all links starting with http(s)
 	const replacementWord = '';
-	const bracketRegex = /[()[\]{}<>@]/g;
-	const emojiRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji}/gu;
-	const funnyRegex = /[\u0E00-\u0E7F\u200B-\u200D\u2028-\u202F]+/g;
-	const discordFormat = /[*_~`|]/g;
-	
+	const comboRegex = /[()[\]{}<>@]|[\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji}|[\u0E00-\u0E7F\u200B-\u200D\u2028-\u202F]+|[*_~`|]/gu;
+
 	wordToReplace.forEach(word => {
 	
 		message = message
@@ -132,16 +123,13 @@ function composeMessageRaw(data) {
 	
 	message = message
 		.replace(linkRegex, '')
-		.replace(discordFormat, '');
+		.replace(comboRegex, '');
 
 	username = username
-		.replace(bracketRegex, '')
-		.replace(discordFormat, '')
+		.replace(comboRegex, '')
 		.replace(wordToReplace, '')
-		.replace(emojiRegex, '')
-		.replace(linkRegex, '')
-		.replace(funnyRegex, '');
-
+		.replace(linkRegex, '');
+		
 	if (!username.trim()) {
 		username = 'username';
 		}
