@@ -80,7 +80,7 @@ function composeMessage(data) {
 	const wordToReplace = ['discord.com/invite', 't.me/',  'discord.gg/', 'dsc.gg/', '@everyone', '@here', 'youtube.com/', 'youtu.be/' ]; //removing some of the hard-coded links
 	const linkRegex = /(https?:\/\/[^\s]+)/g; //this one should cover all links starting with http(s)
 	const replacementWord = '';
-	const comboRegex = const comboRegex = /[()[\]{}<>@]|[\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji}|[\u0E00-\u0E7F\u200B-\u200D\u2028-\u202F\x{E0001}]+|[*_~`|]/gu;
+	const comboRegex = /[()[\]{}<>@]|[\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji}|[\u0E00-\u0E7F\u200B-\u200D\u2028-\u202F\x{E0001}]+|[*_~`|]/gu;
 
 	wordToReplace.forEach(word => {
 	
