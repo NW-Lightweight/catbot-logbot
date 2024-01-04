@@ -1,6 +1,7 @@
 /*
-	npm install dateformat discord.js tail
+	npm install
 */
+//Users should only npm install if package.json exists
 
 const { token } = require('./private.json');
 
@@ -77,7 +78,7 @@ function composeMessage(data) {
 	let message = data[3];
 	let ipcID = data[4];
 
-	const wordToReplace = ['discord.com/invite', 't.me/',  'discord.gg/', 'dsc.gg/', '@everyone', '@here', 'youtube.com/', 'youtu.be/' ]; //removing some of the hard-coded links
+	const wordToReplace = ['discord.com/invite', 't.me/',  'discord.gg/', 'dsc.gg/', /*'@everyone', '@here',*/ 'youtube.com/', 'youtu.be/' ]; //removing some of the hard-coded links
 	const linkRegex = /(https?:\/\/[^\s]+)/g; //this one should cover all links starting with http(s)
 	const replacementWord = '';
 	const comboRegex = /[()[\]{}<>@]|[\uD800-\uDBFF][\uDC00-\uDFFF]|\p{Emoji}|[\u0E00-\u0E7F\u200B-\u200D\u2028-\u202F\x{E0001}]+|[*_~`|]/gu;
@@ -101,7 +102,7 @@ function composeMessage(data) {
 		username = 'username';
 		}
 	
-	return `\`[ID ${ipcID}]\` [${username}](https://steamcommunity.com/profiles/[U:1:${steamID}]) : ${message}`;
+	return `\`[ID ${ipcID}]\` [${username}](https://steamcommunity.com/profiles/[U:1:${steamID}]): ${message}`;
 }
 
 function composeMessageRaw(data) {
@@ -134,7 +135,7 @@ function composeMessageRaw(data) {
 		username = 'username';
 		}
 
-	return `\`[ID ${ipcID}]\` [${username}](https://steamcommunity.com/profiles/[U:1:${steamID}]) : ${message}`;
+	return `\`[ID ${ipcID}]\` [${username}](https://steamcommunity.com/profiles/[U:1:${steamID}]): ${message}`;
 }
 
 function test_and_set(msg) {
@@ -205,7 +206,10 @@ function send() {
 			process.stdout.write(msgRaw);
 			let chans = client.channels.cache.filter(channel => channel.type === 'text').filter(channel => channel.name === 'tf2-chat-relay').array();
 			for (let channel of chans) {
-				channel.send(msg);
+				channel.send({ content: msg, allowedMentions: { parse: [] });
+				//Purpose: Send a message to Discord saying what roles or users we allow to be mentioned, 
+				//and will not mention @here or @everyone regardless of permission.
+				//~qt 2024
 			}
 		}
 		catch (e) { }
